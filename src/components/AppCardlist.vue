@@ -16,12 +16,9 @@ const filteredLocation = computed(() => {
     return locations
   }
   return locations.filter((location) => {
-    // console.log(location.city.toLowerCase())
-    // console.log(cityStore.cityName.trim().toLowerCase())
     const name = location.city.toLowerCase()
     const storeName = cityStore.cityName.trim().toLowerCase()
-    name.includes(storeName)
-    // location.city.toLowerCase().includes(cityStore.cityName.trim().toLowerCase())
+    return name.includes(storeName)
   })
 })
 
