@@ -34,4 +34,83 @@ const findStatusId = (id: string) => {
   </li>
 </template>
 
-<style setup></style>
+<style setup>
+ol {
+  padding: 0;
+}
+
+.content-cloud {
+  max-width: 160px;
+  max-height: 160px;
+}
+
+.content {
+  position: relative;
+  display: grid;
+  grid-template-columns: 50% auto;
+  grid-template-rows: 100px auto;
+  justify-items: center;
+  align-items: center;
+  max-width: 340px;
+  min-height: 215px;
+  background: url(@/assets/bg_temperature.svg) no-repeat;
+  background-clip: padding-box;
+  background-size: contain;
+  background-position: center;
+  margin-top: 30px;
+  z-index: 3;
+}
+
+.content::before {
+  position: absolute;
+  content: '';
+  max-width: 390px;
+  max-height: 300px;
+  width: 110%;
+  height: 110%;
+  border-radius: 60%;
+  background: conic-gradient(
+      from 180deg at 50% 50%,
+      #612fab -90.71deg,
+      rgba(97, 47, 171, 0) 50.02deg,
+      #612fab 129.55deg,
+      rgba(97, 47, 171, 0) 226.06deg,
+      #612fab 269.29deg,
+      rgba(97, 47, 171, 0) 410.02deg
+    )
+    no-repeat;
+  opacity: 0.6;
+  filter: blur(30px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.content-temperature {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  padding-left: 20px;
+  font-size: 4rem;
+  font-weight: 400;
+  margin-top: 30%;
+}
+
+.content-city {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+  padding-left: 20px;
+}
+
+.content-condition,
+.content-city {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.content-high-low {
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(235, 235, 245, 0.6);
+}
+</style>
