@@ -45,7 +45,7 @@ interface Temperature {
   minTemp: number
 }
 
-interface Location {
+export interface Location {
   city: string
   statusId: string
   temperature: Temperature

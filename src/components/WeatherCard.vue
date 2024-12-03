@@ -1,34 +1,35 @@
-<script lang="ts"></script>
+<script setup lang="ts">
+import { type Location } from './scripts/dataWeather'
+import { locationStatusId } from './scripts/dataWeather'
+
+interface IPropsCard {
+  value: Location
+}
+
+const props = defineProps<IPropsCard>()
+
+const findStatusId = (id: string) => {
+  return locationStatusId.find((status) => status.id == id)
+}
+</script>
 
 <template>
-  <li
-    class="content"
-    v-for="(item, idx) in filteredLocation"
-    :key="idx"
-    data-aos="fade-in"
-    data-aos-offset="-1500"
-    data-aos-delay="50"
-    data-aos-duration="1000"
-    data-aos-easing="ease-out"
-    data-aos-mirror="false"
-    data-aos-once="false"
-    data-aos-anchor-placement="top-bottom"
-  >
-    <span class="content-temperature">{{ item.temperature.currentTemp }}°</span>
+  <li class="content">
+    <span class="content-temperature">{{ props.value.temperature.currentTemp }}°</span>
     <img
-      :src="findStatusId(item.statusId)?.img"
-      :alt="findStatusId(item.statusId)?.alt"
+      :src="findStatusId(props.value.statusId)?.img"
+      :alt="findStatusId(props.value.statusId)?.alt"
       class="content-cloud"
     />
     <span class="content-city">
       <span class="content-high-low">
-        H:{{ item.temperature.maxTemp }}° L:{{ item.temperature.minTemp }}° </span
+        H:{{ props.value.temperature.maxTemp }}° L:{{ props.value.temperature.minTemp }}° </span
       ><br />
-      <span class="content-city-name">{{ item.city }}</span>
+      <span class="content-city-name">{{ props.value.city }}</span>
     </span>
     <span class="content-condition">
       <span class="empty-bg"> </span><br />
-      <span class="content-condition">{{ findStatusId(item.statusId)?.name }}</span>
+      <span class="content-condition">{{ findStatusId(props.value.statusId)?.name }}</span>
     </span>
   </li>
 </template>

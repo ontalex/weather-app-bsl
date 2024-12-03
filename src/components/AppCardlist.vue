@@ -2,8 +2,6 @@
 import { computed, onBeforeMount } from 'vue'
 import { useCityStore } from '@/stores/city'
 import { locations } from './scripts/dataWeather'
-import { locationStatusId } from './scripts/dataWeather'
-
 import { getWeatherCity } from './scripts/getWeather'
 
 onBeforeMount(async () => {
@@ -23,22 +21,14 @@ const filteredLocation = computed(() => {
   })
 })
 
-// const changeCityStore = (e: Event) => {
-//   cityStore.change((e.target as HTMLInputElement).value)
-// }
-
 const resetSearchValue = () => {
   cityStore.cityName = ''
-}
-
-const findStatusId = (id: string) => {
-  return locationStatusId.find((status) => status.id == id)
 }
 </script>
 
 <template>
   <ol class="app-content">
-    <WeatherCard v-for="item of filteredLocation.length" />
+    <WeatherCard v-for="item of filteredLocation" :key="item" :value="item" />
   </ol>
 
   <div
