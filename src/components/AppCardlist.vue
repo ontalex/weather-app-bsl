@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, onBeforeMount } from 'vue'
 import { useCityStore } from '@/stores/city'
-import { locations } from './scripts/dataWeather'
-import { getWeatherCity } from './scripts/getWeather'
+import { locations } from './types/dataLocations'
+import { getWeatherCity } from './scripts/getLocations'
 import WeatherCard from './WeatherCard.vue'
 
 onBeforeMount(async () => {
@@ -16,9 +16,12 @@ const filteredLocation = computed(() => {
     return locations
   }
   return locations.filter((location) => {
-    const name = location.city.trim().toLowerCase()
+    // console.log(location.city.toLowerCase())
+    // console.log(cityStore.cityName.trim().toLowerCase())
+    const name = location.city.toLowerCase()
     const storeName = cityStore.cityName.trim().toLowerCase()
     name.includes(storeName)
+    // location.city.toLowerCase().includes(cityStore.cityName.trim().toLowerCase())
   })
 })
 

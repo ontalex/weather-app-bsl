@@ -1,44 +1,5 @@
 import { reactive } from 'vue'
 
-// export const locations = reactive([
-// {
-//   city: 'Бенгалуру, Индия',
-//   statusId: 0,
-//   temperature: {
-//     currentTemp: 19,
-//     maxTemp: 24,
-//     minTemp: 18,
-//   },
-// },
-//   {
-//     city: 'Ченнай, Индия',
-//     statusId: 1,
-//     temperature: {
-//       currentTemp: 22,
-//       maxTemp: 26,
-//       minTemp: 18,
-//     },
-//   },
-//   {
-//     city: 'Дели, Индия',
-//     statusId: 2,
-//     temperature: {
-//       currentTemp: 29,
-//       maxTemp: 32,
-//       minTemp: 27,
-//     },
-//   },
-//   {
-//     city: 'Мумбаи, Индия',
-//     statusId: 3,
-//     temperature: {
-//       currentTemp: 29,
-//       maxTemp: 16,
-//       minTemp: 23,
-//     },
-//   },
-// ])
-
 interface Temperature {
   currentTemp: number
   maxTemp: number
@@ -120,5 +81,3 @@ export const locationStatusId: LocationStatusId[] = [
     alt: 'Луна и облако с легким ледяным дождем',
   },
 ]
-
-// TODO: вынести в директорию types common common.ts

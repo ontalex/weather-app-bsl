@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { type Location } from './scripts/dataWeather'
-import { locationStatusId } from './scripts/dataWeather'
+import { type Location } from './types/dataLocations'
+import { locationStatusId } from './types/dataLocations'
 
 interface IPropsCard {
   value: Location
