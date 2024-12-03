@@ -1,13 +1,9 @@
 <script setup lang="ts">
-// import TheWelcome from '../components/TheWelcome.vue'
+import TheWelcome from '../components/TheWelcome.vue'
 </script>
 
 <template>
-  <main>Главная</main>
+  <main>
+    <TheWelcome />
+  </main>
 </template>
-
-<style setup>
-.app {
-  margin: 50px 50%;
-}
-</style>
