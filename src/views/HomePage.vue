@@ -2,9 +2,9 @@
   <div class="home">
 
     <div class="home__content">
-      <div class="home__location">{{ data.location.name }}</div>
-      <div class="home__temperature">{{ data.current.temp_c }}°</div>
-      <div class="home__weather-status">{{ data.current.condition.text }}</div>
+      <div class="home__location">{{ dataRes?.location.name }}</div>
+      <div class="home__temperature">{{ dataRes?.current.temp_c }}°</div>
+      <div class="home__weather-status">{{ dataRes?.current.condition.text }}</div>
       <div class="temperature-info">
         <div class="temperature-info__min">H:{{ this_day?.day.maxtemp_c }}°</div>
         <div class="temperature-info__max">L:{{ this_day?.day.mintemp_c }}°</div>
@@ -13,32 +13,32 @@
 
     <img src="/img_house.png" alt="house" class="home__picture">
 
-    <ForecastBar :days="data.forecast.forecastday" :current_day="this_day" />
+    <ForecastBar :days="dataRes?.forecast.forecastday" :current_day="this_day" :reload="fetchData" />
 
   </div>
 </template>
 
 <script setup lang="ts">
 import ForecastBar from '@/components/Forecast/ForecastBar/ForecastBar.vue';
-// import { useNavStore } from '@/stores/navigation';
 import { useWeek } from '@/use/week';
-// import { useNavigation } from '@/use/navigation';
-// import { useWeek } from '@/use/week';
-import { computed, onMounted, type ComputedRef } from 'vue';
+import * as vue from 'vue';
 
-const { data } = await useWeek();
+const { dataRes, fetchData } = await useWeek();
 
-let this_day: ComputedRef<any>;
+vue.onMounted(() => {
+  console.log("Data on page:", dataRes.value);
+  fetchData();
+})
 
-onMounted(() => {
-  this_day = computed(() => {
-    const day = data.forecast.forecastday.find((item: { date: string | number | Date; }) => {
-      return new Date(item.date).toISOString().split("T")[0] == new Date().toISOString().split("T")[0];
-    });
-    console.log("Current Day:", day);
-    return day
-  })
-}, data)
+const this_day = vue.computed(() => {
+  const day = dataRes.value?.forecast.forecastday.find((item: { date: string | number | Date; }) => {
+    return new Date(item.date).toISOString().split("T")[0] == new Date().toISOString().split("T")[0];
+  });
+  console.log("Current Day:", day);
+  return day
+})
+
+console.log(this_day);
 
 </script>
 

@@ -1,55 +1,30 @@
-import { computed, ref, type Ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import * as pi from 'pinia'
-import axios from 'axios';
 
-export const useNavStore = pi.defineStore('nav', {
-  state: () => {
-    return ({
-      location: null,
-      data: null,
-    });
-  },
-
-  getters: {
-    location: (state) => state.location,
-    data: (state) => state.data
-  },
+export const useLocationStore = pi.defineStore('location', {
+  state: () => ({
+    hasData: false,
+    latitude: null,
+    longitude: null,
+  }),
   actions: {
-    async fetchData() {
-      if (this.location) {
-        const data = await axios.get(
-          "https://api.weather.ontalex.ru/weather/week/gps",
-          {
-            params: {
-              latitude: this.location.latitude,
-              longitude: this.location.longitude,
-              days: 7,
-            }
-          }
-        );
-        this.data = data;
-        console.log("Data fetching:", data);
-      }
+    updateLocation(lat, long) {
+      this.hasData = true;
+      this.latitude = lat;
+      this.longitude = long;
     },
-    async getCurrentPosition() {
+    async fetchLocation() {
       if (navigator.geolocation) {
-        const position = navigator.geolocation.getCurrentPosition(
-          (position) => {
-            this.location = { latitude: position.coords.latitude, longitude: position.coords.longitude };
-            console.log("Get Current Position:", position);
-          },
-          (error) => {
-            console.error('Ошибка геолокации:', error);
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0,
-          }
-        );
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.updateLocation(position.coords.latitude, position.coords.longitude);
+        }, (error) => {
+          this.hasData = false;
+          console.error("Error occurred while retrieving geolocation: ", error);
+        });
       } else {
-        console.error('Геолокация не поддерживается браузером.');
+        this.hasData = false;
+        console.error("Geolocation is not supported by this browser.");
       }
     }
-  }
-})
+  },
+});

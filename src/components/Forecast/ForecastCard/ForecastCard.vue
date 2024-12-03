@@ -27,9 +27,9 @@ const props = defineProps<{
   }
 }>();
 
-const com_icon = computed(() => `http:${props.value.day?.day.condition.icon || props.value.hour?.condition.icon}`)
-const com_alt = computed(() => `http:${props.value.day?.day.condition.text || props.value.hour?.condition.text}`)
-const com_temperature = computed(() => props.value.day?.day.avgtemp_c || props.value.hour?.temp_c);
+const com_icon = computed(() => `${props.value.day?.day.condition.icon || props.value.hour?.condition.icon}`)
+const com_alt = computed(() => `${props.value.day?.day.condition.text || props.value.hour?.condition.text}`)
+const com_temperature = computed(() => typeof props.value.day?.day.avgtemp_c == "number" ? `${props.value.day?.day.avgtemp_c}` : `${props.value.hour?.temp_c}`);
 const com_probability = computed(() => {
   if (props.value.hour) {
     return `${props.value.hour.chance_of_rain}%`

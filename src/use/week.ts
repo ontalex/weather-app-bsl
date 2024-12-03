@@ -1,32 +1,41 @@
 import axios from "axios";
-// import { useNavigation } from "./navigation";
-import { useNavStore } from "@/stores/navigation";
-import { onBeforeMount, onMounted, type Ref } from "vue";
-import type { Store } from "pinia";
-// import { useNavigation } from "./navigation";
-// import { onBeforeMount, onMounted, ref } from "vue";
+import { useLocationStore } from "@/stores/navigation";
+import { ref } from "vue";
+// import { onBeforeMount, onMounted, type Ref } from "vue";
 
 export async function useWeek() {
+  const nav = useLocationStore();
 
-  let nav: Store<"nav", Pick<{ coordsRef: Ref<GeolocationCoordinates | undefined, GeolocationCoordinates | undefined>; setCoords: (coords: GeolocationPosition) => void; }, "coordsRef">, Pick<{ coordsRef: Ref<GeolocationCoordinates | undefined, GeolocationCoordinates | undefined>; setCoords: (coords: GeolocationPosition) => void; }, never>, Pick<{ coordsRef: Ref<GeolocationCoordinates | undefined, GeolocationCoordinates | undefined>; setCoords: (coords: GeolocationPosition) => void; }, "setCoords">>;
-  let fetching;
-
-  onBeforeMount(() => {
-    nav = useNavStore()
-  })
-
-  onMounted(async () => {
-    fetching = await axios.get(
-      "https://api.weather.ontalex.ru/weather/week/gps",
-      {
-        params: {
-          latitude: nav.coordsRef?.latitude,
-          longitude: nav.coordsRef?.longitude,
-          days: 7,
+  const dataRes = ref();
+  async function fetchData() {
+    if (nav.hasData) {
+      const data = await axios.get(
+        "https://api.weather.ontalex.ru/weather/week/gps",
+        {
+          params: {
+            latitude: nav.latitude,
+            longitude: nav.longitude,
+            days: 7,
+          }
         }
-      }
-    )
-  });
+      );
+      dataRes.value = data.data;
+    } else {
+      const data = await axios.get(
+        "https://api.weather.ontalex.ru/weather/week/gps",
+        {
+          params: {
+            days: 7,
+          }
+        }
+      );
+      dataRes.value = data.data;
+    }
+    console.log("Data fetching:", dataRes);
+  }
 
-  return fetching
+  return {
+    dataRes,
+    fetchData,
+  }
 }
