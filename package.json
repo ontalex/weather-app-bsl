@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "vue-project",
-=======
-  "name": "weatcher-app-vue-2",
->>>>>>> feature/aleksey
+  "name": "weather-app-vue",
   "version": "0.0.0",
   "private": true,
   "type": "module",
