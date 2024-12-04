@@ -5,9 +5,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .loader {
@@ -20,7 +18,7 @@
 .loader__effect {
   width: 48px;
   height: 48px;
-  border: 3px solid #FFF;
+  border: 3px solid #fff;
   border-radius: 50%;
   display: inline-block;
   position: relative;

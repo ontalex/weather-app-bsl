@@ -1,5 +1,5 @@
 @import './base.css';
-@import "./foots.css";
+@import './foots.css';
 
 /* #app {
   width: 100svw;
@@ -33,9 +33,9 @@ body {
   position: relative;
   box-sizing: border-box;
 
-  box-shadow: -40px 60px 150px 0px #3B267BB2;
+  box-shadow: -40px 60px 150px 0px #3b267bb2;
 
-  background-image: url("/bg_sky.png");
+  background-image: url('/bg_sky.png');
   background-size: cover;
   background-position: center;
 }

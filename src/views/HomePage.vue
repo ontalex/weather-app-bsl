@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-
     <div class="home__content">
       <div class="home__location">{{ dataRes?.location.name }}</div>
       <div class="home__temperature">{{ dataRes?.current.temp_c }}°</div>
@@ -11,39 +10,41 @@
       </div>
     </div>
 
-    <img src="/img_house.png" alt="house" class="home__picture">
+    <img src="/img_house.png" alt="house" class="home__picture" />
 
-    <ForecastBar :days="dataRes?.forecast.forecastday" :current_day="this_day" :reload="fetchData" />
-
+    <ForecastBar
+      :days="dataRes?.forecast.forecastday"
+      :current_day="this_day"
+      :reload="fetchData"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import ForecastBar from '@/components/Forecast/ForecastBar/ForecastBar.vue';
-import { useWeek } from '@/use/week';
-import * as vue from 'vue';
+import ForecastBar from '@/components/Forecast/ForecastBar/ForecastBar.vue'
+import { useWeek } from '@/use/week'
+import * as vue from 'vue'
 
-const { dataRes, fetchData } = await useWeek();
+const { dataRes, fetchData } = await useWeek()
 
 vue.onMounted(() => {
-  console.log("Data on page:", dataRes.value);
-  fetchData();
+  console.log('Data on page:', dataRes.value)
+  fetchData()
 })
 
 const this_day = vue.computed(() => {
-  const day = dataRes.value?.forecast.forecastday.find((item: { date: string | number | Date; }) => {
-    return new Date(item.date).toISOString().split("T")[0] == new Date().toISOString().split("T")[0];
-  });
-  console.log("Current Day:", day);
+  const day = dataRes.value?.forecast.forecastday.find((item: { date: string | number | Date }) => {
+    return new Date(item.date).toISOString().split('T')[0] == new Date().toISOString().split('T')[0]
+  })
+  console.log('Current Day:', day)
   return day
 })
 
-console.log(this_day);
-
+console.log('THis Day: ', this_day)
 </script>
 
 <style lang="scss" scoped>
-@import "/src/assets/foots.css";
+@import '/src/assets/foots.css';
 
 .home {
   &__content {
@@ -70,19 +71,15 @@ console.log(this_day);
     text-overflow: ellipsis;
 
     margin-bottom: 12px;
-
   }
 
   &__temperature {
-
     font-family: SF Pro Display;
     font-size: 96px;
     font-weight: 200;
     line-height: 70px;
     letter-spacing: 0.37400001287460327px;
     text-align: center;
-
-
   }
 
   &__weather-status {
@@ -102,9 +99,11 @@ console.log(this_day);
     font-weight: 500;
     line-height: 24px;
 
-    &__min {}
+    &__min {
+    }
 
-    &__max {}
+    &__max {
+    }
   }
 
   &__picture {
