@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
-import LoadingState from './components/Loading/LoadingState.vue';
-
+import { RouterView } from 'vue-router'
+import LoadingState from './components/Loading/LoadingState.vue'
 </script>
 
 <template>
