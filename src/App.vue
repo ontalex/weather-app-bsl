@@ -1,15 +1,27 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView } from 'vue-router';
+import LoadingState from './components/Loading/LoadingState.vue';
+
 </script>
 
 <template>
-  <RouterView />
+  <Suspense>
+    <RouterView />
+    <template #fallback>
+      <div class="wrapper">
+        <LoadingState />
+      </div>
+    </template>
+  </Suspense>
 </template>
 
-<style>
-body {
-  background: linear-gradient(169.61deg, #2e3358 2.83%, #1c1b33 94.85%);
-  min-height: 100vh;
+<style scoped lang="scss">
+.wrapper {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
-<style scoped></style>
