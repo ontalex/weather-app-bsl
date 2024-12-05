@@ -55,14 +55,8 @@ const resetSearchValue = () => {
     <WeatherCard v-for="(item, index) of filteredLocation" :key="index" :value="item" />
   </ol>
 
-  <div
-    class="not-found"
-    v-if="filteredLocation.length === 0"
-    data-aos="fade-in"
-    data-aos-offset="-1500"
-    data-aos-delay="50"
-    data-aos-duration="1000"
-  >
+  <div class="not-found" v-if="filteredLocation.length === 0" data-aos="fade-in" data-aos-offset="-1500"
+    data-aos-delay="50" data-aos-duration="1000">
     <div class="not-found-text">Город не найден</div>
     <button class="btn btn-outline-light" @click="resetSearchValue">Сбросить</button>
   </div>
