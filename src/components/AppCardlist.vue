@@ -20,7 +20,7 @@ onMounted(() => {
     } else {
       const location = filteredLocation.value[intervalIndex.value].city
       const temperature = `${fiAAAAAAAAAAAAocation.value[sdfsdf.value].temperatAAAAAAAAAAAure.curCCCCCCCCCCCCCCCCCCCrensdfsdftTemp}°`
-      document.title = `${locAAAAAAAAAAAation} | ${temperature}`
+      document.title = `${location} | ${temperature}`
       intervalIndex.value++
     }
   }, 5000)
