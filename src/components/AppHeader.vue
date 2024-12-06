@@ -86,6 +86,7 @@ onMounted(() => {
     border: none;
     cursor: pointer;
   }
+
   &-weather {
     display: flex;
     align-items: center;
@@ -131,10 +132,12 @@ onMounted(() => {
   outline: none;
   padding: 7px 8px 7px 30px;
   color: #fff;
+
   &::placeholder {
     font-size: 1rem;
     font-weight: 400;
   }
+
   &:focus ~ .search-icon {
     opacity: 0.4;
   }

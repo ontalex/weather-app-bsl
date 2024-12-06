@@ -65,10 +65,12 @@ ol {
   background-position: center;
   margin-top: 30px;
   z-index: 3;
+
   &-cloud {
     max-width: 160px;
     max-height: 160px;
   }
+
   &::before {
     position: absolute;
     content: '';
@@ -92,6 +94,7 @@ ol {
     z-index: -1;
     pointer-events: none;
   }
+
   &-temperature {
     grid-column: 1;
     grid-row: 1;
@@ -101,17 +104,24 @@ ol {
     font-weight: 400;
     margin-top: 30%;
   }
+
   &-city {
     grid-column: 1;
     grid-row: 2;
     justify-self: start;
     padding-left: 20px;
   }
+
   &-condition,
   &-city {
     font-size: 1rem;
     font-weight: 400;
   }
+
+  &-condition {
+    text-align: center;
+  }
+
   &-high-low {
     font-size: 1rem;
     font-weight: 400;
