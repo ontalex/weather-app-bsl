@@ -5,65 +5,53 @@
       <div class="home__temperature">{{ dataRes?.current.temp_c }}°</div>
       <div class="home__weather-status">{{ dataRes?.current.condition.text }}</div>
       <div class="temperature-info">
-        <div class="temperature-info__min">H:{{ currentDay?.day.maxtemp_c }}°</div>
-        <div class="temperature-info__max">L:{{ currentDay?.day.mintemp_c }}°</div>
+        <div class="temperature-info__min">H:{{ this_day?.day.maxtemp_c }}°</div>
+        <div class="temperature-info__max">L:{{ this_day?.day.mintemp_c }}°</div>
       </div>
     </div>
 
     <img src="/img_house.png" alt="house" class="home__picture" />
 
-    <!-- <TestForm /> -->
-
-    <ForecastBar :days="dataRes?.forecast.forecastday" :current_day="currentDay" :reload="fetchData" />
+    <ForecastBar :days="dataRes?.forecast.forecastday" :current_day="this_day" :reload="fetchData" />
   </div>
 </template>
 
 <script setup lang="ts">
 import ForecastBar from '@/components/Forecast/ForecastBar/ForecastBar.vue'
 import { useWeek } from '@/use/week'
-// import TestForm from '@/components/TestForm.vue'
-import { onMounted, onBeforeUnmount, computed, ref, watch } from 'vue'
+import * as vue from 'vue'
 
 const { dataRes, fetchData } = await useWeek()
 
-onMounted(() => {
-  // console.log('Data on page:', dataRes.value)
+vue.onMounted(() => {
+  console.log('Data on page:', dataRes.value)
   fetchData()
 })
 
 // Меняем заголовок при уходе со страницы
-onBeforeUnmount(() => {
+vue.onBeforeUnmount(() => {
   document.title = 'weather app ...'
 })
 
-/**
- * Текущий день
- */
-const currentDay = computed(() => {
+const this_day = vue.computed(() => {
   const day = dataRes.value?.forecast.forecastday.find((item: { date: string | number | Date }) => {
     return new Date(item.date).toISOString().split('T')[0] == new Date().toISOString().split('T')[0]
   })
-  // console.log('Current Day:', day)
+  console.log('Current Day:', day)
+
+  // Установка заголовка страницы
+  const location = dataRes.value?.location.name
+  const temperature = `${dataRes.value?.current.temp_c}°`
+  document.title = `${location} | ${temperature}`
 
   return day
 })
 
-watch(
-  () => currentDay.value,
-  () => {
-    console.log('ку')
-
-    // Установка заголовка страницы
-    const location = dataRes.value?.location.name
-    const temperature = `${dataRes.value?.current.temp_c}°`
-
-    document.title = `${location} | ${temperature}`
-  },
-)
+console.log('THis Day: ', this_day)
 </script>
 
 <style lang="scss" scoped>
-@import '/src/assets/foots.css';
+@import '/src/assets/fonts.css';
 
 .home {
   &__content {
@@ -79,14 +67,17 @@ watch(
   }
 
   &__location {
-    font-weight: 400;
-    word-break: break-word;
-    overflow: hidden;
+    /*font-size: 34px;*/
     font-size: 2.125rem;
+
+    font-weight: 400;
+
+    word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 
     margin-bottom: 12px;
-    white-space: nowrap;
   }
 
   &__temperature {
