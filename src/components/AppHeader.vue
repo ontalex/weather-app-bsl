@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useCityStore } from '@/stores/city'
 import { RouterLink } from 'vue-router'
+import { useTemplateRef, onMounted } from 'vue'
 
 const pageTitle = 'Погода'
 const pageInputPlaceholder = 'Поиск нужного города или аэропорта'
@@ -15,6 +16,14 @@ const changeCityStore = (e: Event) => {
 
 const navLeftStringPath = new URL('../assets/navCardHeader/left.svg', import.meta.url).href
 const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.meta.url).href
+
+// Привязка к input полю
+const input = useTemplateRef('input-text-user')
+
+// Фокус на input поле
+onMounted(() => {
+  input.value?.focus()
+})
 </script>
 
 <template>
@@ -33,6 +42,7 @@ const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.m
     <div class="input-text">
       <input
         type="text"
+        ref="input-text-user"
         :placeholder="pageInputPlaceholder"
         class="search-input"
         @input="changeCityStore($event)"

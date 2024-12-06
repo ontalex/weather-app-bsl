@@ -12,7 +12,11 @@
 
     <img src="/img_house.png" alt="house" class="home__picture" />
 
-    <ForecastBar :days="dataRes?.forecast.forecastday" :current_day="this_day" :reload="fetchData" />
+    <ForecastBar
+      :days="dataRes?.forecast.forecastday"
+      :current_day="this_day"
+      :reload="fetchData"
+    />
   </div>
 </template>
 
@@ -21,17 +25,17 @@ import ForecastBar from '@/components/Forecast/ForecastBar/ForecastBar.vue'
 import { useWeek } from '@/use/week'
 import * as vue from 'vue'
 
-const { dataRes, fetchData } = await useWeek();
+const { dataRes, fetchData } = await useWeek()
 
 vue.onMounted(() => {
-  console.log('Data on page:', dataRes.value);
-  fetchData();
+  console.log('Data on page:', dataRes.value)
+  fetchData()
 })
 
 // Меняем заголовок при уходе со страницы
 vue.onBeforeUnmount(() => {
-  document.title = "weather app ..."
-});
+  document.title = 'weather app ...'
+})
 
 const this_day = vue.computed(() => {
   const day = dataRes.value?.forecast.forecastday.find((item: { date: string | number | Date }) => {
@@ -40,9 +44,9 @@ const this_day = vue.computed(() => {
   console.log('Current Day:', day)
 
   // Установка заголовка страницы
-  const location = dataRes.value?.location.name;
-  const temperature = `${dataRes.value?.current.temp_c}°`;
-  document.title = `${location} | ${temperature}`;
+  const location = dataRes.value?.location.name
+  const temperature = `${dataRes.value?.current.temp_c}°`
+  document.title = `${location} | ${temperature}`
 
   return day
 })
@@ -51,7 +55,7 @@ console.log('THis Day: ', this_day)
 </script>
 
 <style lang="scss" scoped>
-@import '/src/assets/foots.css';
+@import '/src/assets/fonts.css';
 
 .home {
   &__content {
@@ -106,9 +110,11 @@ console.log('THis Day: ', this_day)
     font-weight: 500;
     line-height: 24px;
 
-    &__min {}
+    &__min {
+    }
 
-    &__max {}
+    &__max {
+    }
   }
 
   &__picture {
