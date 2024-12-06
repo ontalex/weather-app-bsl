@@ -30,7 +30,7 @@ onMounted(() => {
 // Удаляем интервал при закрытии страницы
 onBeforeUnmount(() => {
   clearInterval(intervalID.value)
-  document.title = 'weather app ...'
+  document.title = 'Weather App'
 })
 
 // Хранение значения введенного пользователем
