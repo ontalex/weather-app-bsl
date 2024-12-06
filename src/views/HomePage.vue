@@ -12,20 +12,16 @@
 
     <img src="/img_house.png" alt="house" class="home__picture" />
 
-    <TestForm />
+    <!-- <TestForm /> -->
 
-    <ForecastBar
-      :days="dataRes?.forecast.forecastday"
-      :current_day="currentDay"
-      :reload="fetchData"
-    />
+    <ForecastBar :days="dataRes?.forecast.forecastday" :current_day="currentDay" :reload="fetchData" />
   </div>
 </template>
 
 <script setup lang="ts">
 import ForecastBar from '@/components/Forecast/ForecastBar/ForecastBar.vue'
 import { useWeek } from '@/use/week'
-import TestForm from '@/components/TestForm.vue'
+// import TestForm from '@/components/TestForm.vue'
 import { onMounted, onBeforeUnmount, computed, ref, watch } from 'vue'
 
 const { dataRes, fetchData } = await useWeek()
@@ -119,11 +115,9 @@ watch(
     font-weight: 500;
     line-height: 24px;
 
-    &__min {
-    }
+    &__min {}
 
-    &__max {
-    }
+    &__max {}
   }
 
   &__picture {

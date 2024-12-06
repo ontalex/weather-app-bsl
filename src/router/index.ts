@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
 import WeatherView from '@/views/WeatherView.vue'
+import SwipePage from '@/views/SwipePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,6 +17,11 @@ const router = createRouter({
       name: 'weathers',
       component: WeatherView,
     },
+    {
+      path: "/swiper",
+      name: 'swiper',
+      component: SwipePage
+    }
   ],
 })
 
