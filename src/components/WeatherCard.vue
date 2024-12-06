@@ -10,7 +10,17 @@ const props = defineProps<IPropsCard>()
 
 // Поиск изображения по id из Location
 const findStatusId = (id: string) => {
-  return locationStatusId.find((status) => status.id == id)
+  const locations = locationStatusId.find((status) => status.id == id)
+  if (locations) {
+    return locations
+  } else {
+    return {
+      id: 'Light freezing rain',
+      name: 'Погода не известна',
+      img: new URL('@/assets/question-mark.svg', import.meta.url).href,
+      alt: 'Не известная погода',
+    }
+  }
 }
 </script>
 
