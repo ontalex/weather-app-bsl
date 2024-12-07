@@ -27,9 +27,11 @@ onMounted(() => {
   }, 5000)
 })
 
-// Удаляем интервал при закрытии страницы
+// Очищаем при закрытии страницы: интервал, locations, введенный город
 onBeforeUnmount(() => {
   clearInterval(intervalID.value)
+  locations.length = 0
+  resetSearchValue()
   document.title = 'Weather App'
 })
 
