@@ -10,7 +10,17 @@ const props = defineProps<IPropsCard>()
 
 // Поиск изображения по id из Location
 const findStatusId = (id: string) => {
-  return locationStatusId.find((status) => status.id == id)
+  const locations = locationStatusId.find((status) => status.id == id)
+  if (locations) {
+    return locations
+  } else {
+    return {
+      id: 'Light freezing rain',
+      name: 'Погода не известна',
+      img: new URL('@/assets/question-mark.svg', import.meta.url).href,
+      alt: 'Не известная погода',
+    }
+  }
 }
 </script>
 
@@ -55,10 +65,12 @@ ol {
   background-position: center;
   margin-top: 30px;
   z-index: 3;
+
   &-cloud {
     max-width: 160px;
     max-height: 160px;
   }
+
   &::before {
     position: absolute;
     content: '';
@@ -82,6 +94,7 @@ ol {
     z-index: -1;
     pointer-events: none;
   }
+
   &-temperature {
     grid-column: 1;
     grid-row: 1;
@@ -91,17 +104,24 @@ ol {
     font-weight: 400;
     margin-top: 30%;
   }
+
   &-city {
     grid-column: 1;
     grid-row: 2;
     justify-self: start;
     padding-left: 20px;
   }
+
   &-condition,
   &-city {
     font-size: 1rem;
     font-weight: 400;
   }
+
+  &-condition {
+    text-align: center;
+  }
+
   &-high-low {
     font-size: 1rem;
     font-weight: 400;
