@@ -20,7 +20,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  padding: 16px;
+  /* padding: 16px; */
 }
 
 #app {
@@ -38,4 +38,6 @@ body {
   background-image: url('/bg_sky.png');
   background-size: cover;
   background-position: center;
+
+  overscroll-behavior-y: none;
 }

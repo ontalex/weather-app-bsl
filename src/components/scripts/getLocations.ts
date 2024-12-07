@@ -23,6 +23,9 @@ const CITIES_NAME = [
   'Нью-Йорк',
 ]
 
+/**
+ * Получаем список текущей погоды по городам с помощью API
+ */
 export const getWeatherCity = async () => {
   for await (const cityName of CITIES_NAME) {
     const urlForecast = `${weatherApiUrlBase}/forecast.json?key=${API_KEY}&q=${cityName}&days=1`

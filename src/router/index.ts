@@ -15,7 +15,7 @@ const router = createRouter({
       path: '/weathers',
       name: 'weathers',
       component: WeatherView,
-    },
+    }
   ],
 })
 
