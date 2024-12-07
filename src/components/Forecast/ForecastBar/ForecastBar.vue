@@ -61,7 +61,6 @@ import ForecastCard from '../ForecastCard/ForecastCard.vue'
 import type { Forecastday } from '../WeatherGPS.interfaces'
 import { useLocationStore } from '@/stores/navigation'
 import { useSwipe } from '@vueuse/core';
-import moment from 'moment';
 
 onMounted(() => {
     console.log();

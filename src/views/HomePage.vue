@@ -20,7 +20,7 @@
 import ForecastBar from '@/components/Forecast/ForecastBar/ForecastBar.vue'
 import { useWeek } from '@/use/week'
 import moment from 'moment';
-import { onMounted, onBeforeUnmount, computed } from 'vue'
+import { onMounted, onBeforeUnmount, computed, watch } from 'vue'
 
 const { dataRes, fetchData } = await useWeek()
 
@@ -39,15 +39,19 @@ const currentDay = computed(() => {
         return moment(item.date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD')
     })
 
-    // Установка заголовка страницы
-    const location = dataRes.value?.location.name
-    const temperature = `${dataRes.value?.current.temp_c}°`
-    document.title = `${location} | ${temperature}`
-
     return day
 })
 
-console.log('THis Day: ', currentDay)
+watch(
+    () => currentDay.value,
+    () => {
+        // Установка заголовка страницы
+        const location = dataRes.value?.location.name
+        const temperature = `${dataRes.value?.current.temp_c}°`
+
+        document.title = `${location} | ${temperature}`
+    },
+)
 </script>
 
 <style lang="scss" scoped>
@@ -67,7 +71,6 @@ console.log('THis Day: ', currentDay)
     }
 
     &__location {
-        /*font-size: 34px;*/
         font-size: 2.125rem;
 
         font-weight: 400;
@@ -81,18 +84,17 @@ console.log('THis Day: ', currentDay)
     }
 
     &__temperature {
-        font-family: SF Pro Display;
+        font-family: "SF Pro Display";
         font-size: 96px;
         font-weight: 200;
         line-height: 70px;
-        letter-spacing: 0.37400001287460327px;
         text-align: center;
     }
 
     &__weather-status {
         color: rgba(235, 235, 245, 0.6);
 
-        font-family: SF Pro Display;
+        font-family: "SF Pro Display";
         font-size: 20px;
         font-weight: 600;
         line-height: 24px;
@@ -105,10 +107,6 @@ console.log('THis Day: ', currentDay)
         font-size: 20px;
         font-weight: 500;
         line-height: 24px;
-
-        &__min {}
-
-        &__max {}
     }
 
     &__picture {
