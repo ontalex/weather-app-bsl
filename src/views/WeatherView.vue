@@ -30,7 +30,7 @@ import AppCardlist from '@/components/AppCardlist.vue'
 
 .app {
   max-width: 390px;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 
   margin: 0 auto;
 }
