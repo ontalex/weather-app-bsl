@@ -1,25 +1,38 @@
 <script lang="ts" setup>
 import { useCityStore } from '@/stores/city'
+import { RouterLink } from 'vue-router'
+import { useTemplateRef, onMounted } from 'vue'
 
 const pageTitle = 'Погода'
 const pageInputPlaceholder = 'Поиск нужного города или аэропорта'
+
+// Хранение введенного города пользователем
 const cityStore = useCityStore()
 
+// Изменение значения введенного города
 const changeCityStore = (e: Event) => {
   cityStore.change((e.target as HTMLInputElement).value)
 }
 
 const navLeftStringPath = new URL('../assets/navCardHeader/left.svg', import.meta.url).href
 const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.meta.url).href
+
+// Привязка к input полю
+const input = useTemplateRef('input-text-user')
+
+// Фокус на input поле
+onMounted(() => {
+  input.value?.focus()
+})
 </script>
 
 <template>
   <div class="header" data-aos="fade-in">
     <div class="nav-content">
       <div class="nav-weather">
-        <button class="nav-left-btn">
+        <RouterLink to="/" class="nav-left-btn">
           <img :src="navLeftStringPath" alt="nav left" class="nav-left-img" />
-        </button>
+        </RouterLink>
         <div class="weather-text">{{ pageTitle }}</div>
       </div>
       <button class="nav-right-btn">
@@ -29,6 +42,7 @@ const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.m
     <div class="input-text">
       <input
         type="text"
+        ref="input-text-user"
         :placeholder="pageInputPlaceholder"
         class="search-input"
         @input="changeCityStore($event)"
@@ -51,52 +65,54 @@ const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.m
   </div>
 </template>
 
-<style scoped>
-.nav-content {
-  display: grid;
-  padding-bottom: 8px;
-  grid-template-columns: 50% 50%;
-  justify-items: space-around;
-  align-items: center;
-  padding-top: 58px;
-  min-height: 52px;
-}
+<style scoped lang="scss">
+.nav {
+  &-content {
+    display: grid;
+    padding-bottom: 8px;
+    grid-template-columns: 50% 50%;
+    justify-items: space-around;
+    align-items: center;
+    padding-top: 58px;
+    min-height: 52px;
+  }
 
-.nav-weather {
-  display: flex;
-  align-items: center;
-}
+  &-right-btn {
+    justify-self: right;
+    margin-right: 16px;
+    width: 33px;
+    height: 34px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
 
-.nav-left-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-right: 5px;
-  margin-left: 16px;
-  width: 18px;
-  height: 24px;
-}
+  &-weather {
+    display: flex;
+    align-items: center;
+  }
 
-.nav-left-img {
-  display: block;
-  margin: 0 auto;
-  width: 18px;
-  height: 24px;
+  &-left-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-left: 16px;
+    width: 18px;
+    height: 24px;
+  }
+
+  &-left-img {
+    display: block;
+    margin: 0 auto;
+    width: 18px;
+    height: 24px;
+  }
 }
 
 .weather-text {
   font-size: 1.56rem;
   font-weight: 400;
-}
-
-.nav-right-btn {
-  justify-self: right;
-  margin-right: 16px;
-  width: 33px;
-  height: 34px;
-  background: none;
-  border: none;
-  cursor: pointer;
 }
 
 .input-text {
@@ -116,15 +132,15 @@ const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.m
   outline: none;
   padding: 7px 8px 7px 30px;
   color: #fff;
-}
 
-.search-input::placeholder {
-  font-size: 1rem;
-  font-weight: 400;
-}
+  &::placeholder {
+    font-size: 1rem;
+    font-weight: 400;
+  }
 
-.search-input:focus ~ .search-icon {
-  opacity: 0.4;
+  &:focus ~ .search-icon {
+    opacity: 0.4;
+  }
 }
 
 .search-icon {

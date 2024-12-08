@@ -1,44 +1,64 @@
 <script lang="ts" setup>
-import { computed, onBeforeMount } from 'vue'
+import { computed, onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useCityStore } from '@/stores/city'
-import { locations } from './scripts/dataWeather'
-import { locationStatusId } from './scripts/dataWeather'
+import { locations } from './types/dataLocations'
+import { getWeatherCity } from './scripts/getLocations'
+import WeatherCard from './WeatherCard.vue'
 
-import { getWeatherCity } from './scripts/getWeather'
+const intervalID = ref()
+const intervalIndex = ref(0)
 
+// Получение данных в locations
 onBeforeMount(async () => {
   getWeatherCity()
 })
 
+// Создаём интервал обновления при открытии страницы
+onMounted(() => {
+  intervalID.value = setInterval(() => {
+    if (intervalIndex.value + 1 >= filteredLocation.value.length) {
+      intervalIndex.value = 0
+    } else {
+      const location = filteredLocation.value[intervalIndex.value].city
+      const temperature = `${filteredLocation.value[intervalIndex.value].temperature.currentTemp}°`
+      document.title = `${location} | ${temperature}`
+      intervalIndex.value++
+    }
+  }, 5000)
+})
+
+// Очищаем при закрытии страницы: интервал, locations, введенный город
+onBeforeUnmount(() => {
+  clearInterval(intervalID.value)
+  locations.length = 0
+  resetSearchValue()
+  document.title = 'Weather App'
+})
+
+// Хранение значения введенного пользователем
 const cityStore = useCityStore()
 
+// Фильтрация locations по введенному городу (cityStore)
 const filteredLocation = computed(() => {
   if (cityStore.cityName.trim() === '') {
     return locations
   }
   return locations.filter((location) => {
-    const name = location.city.trim().toLowerCase()
+    const name = location.city.toLowerCase()
     const storeName = cityStore.cityName.trim().toLowerCase()
-    name.includes(storeName)
+    return name.includes(storeName)
   })
 })
 
-// const changeCityStore = (e: Event) => {
-//   cityStore.change((e.target as HTMLInputElement).value)
-// }
-
+// Сброс значения введенного города
 const resetSearchValue = () => {
   cityStore.cityName = ''
-}
-
-const findStatusId = (id: string) => {
-  return locationStatusId.find((status) => status.id == id)
 }
 </script>
 
 <template>
   <ol class="app-content">
-    <WeatherCard v-for="item of filteredLocation.length" />
+    <WeatherCard v-for="(item, index) of filteredLocation" :key="index" :value="item" />
   </ol>
 
   <div
@@ -54,95 +74,21 @@ const findStatusId = (id: string) => {
   </div>
 </template>
 
-<style scoped>
-ol {
-  padding: 0;
-}
-
+<style scoped lang="scss">
 .app-content {
   position: relative;
   margin: 25px;
-}
-
-.content-cloud {
-  max-width: 160px;
-  max-height: 160px;
-}
-
-.content {
-  position: relative;
-  display: grid;
-  grid-template-columns: 50% auto;
-  grid-template-rows: 100px auto;
-  justify-items: center;
-  align-items: center;
-  max-width: 340px;
-  min-height: 215px;
-  background: url(@/assets/bg_temperature.svg) no-repeat;
-  background-clip: padding-box;
-  background-size: contain;
-  background-position: center;
-  margin-top: 30px;
-  z-index: 3;
-}
-
-.content::before {
-  position: absolute;
-  content: '';
-  max-width: 390px;
-  max-height: 300px;
-  width: 110%;
-  height: 110%;
-  border-radius: 60%;
-  background: conic-gradient(
-      from 180deg at 50% 50%,
-      #612fab -90.71deg,
-      rgba(97, 47, 171, 0) 50.02deg,
-      #612fab 129.55deg,
-      rgba(97, 47, 171, 0) 226.06deg,
-      #612fab 269.29deg,
-      rgba(97, 47, 171, 0) 410.02deg
-    )
-    no-repeat;
-  opacity: 0.6;
-  filter: blur(30px);
-  z-index: -1;
-  pointer-events: none;
-}
-
-.content-temperature {
-  grid-column: 1;
-  grid-row: 1;
-  justify-self: start;
-  padding-left: 20px;
-  font-size: 4rem;
-  font-weight: 400;
-  margin-top: 30%;
-}
-
-.content-city {
-  grid-column: 1;
-  grid-row: 2;
-  justify-self: start;
-  padding-left: 20px;
-}
-
-.content-condition,
-.content-city {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.content-high-low {
-  font-size: 1rem;
-  font-weight: 400;
-  color: rgba(235, 235, 245, 0.6);
 }
 
 .not-found {
   display: flex;
   margin: 16px 48px;
   gap: 10px;
+
+  &-text {
+    font-size: 1.56rem;
+    font-weight: 400;
+  }
 }
 
 .not-found-btn {
@@ -151,15 +97,9 @@ ol {
   border-radius: 10px;
   margin: 5px 0;
   color: #1c1b33;
-}
-
-.not-found-btn:hover {
-  transition: opacity 0.5s ease-in-out;
-  opacity: 0.8;
-}
-
-.not-found-text {
-  font-size: 1.56rem;
-  font-weight: 400;
+  &:hover {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0.8;
+  }
 }
 </style>

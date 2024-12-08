@@ -4,12 +4,23 @@ import AppCardlist from '@/components/AppCardlist.vue'
 </script>
 
 <template>
-  <!-- Здесь Header -->
-  <AppHeader />
+  <div class="wrapper-weather">
+    <!-- Здесь Header -->
+    <AppHeader />
 
-  <!-- Здесь CardList -->
-  <AppCardlist />
+    <!-- Здесь CardList -->
+    <AppCardlist />
+  </div>
 </template>
+
+<style scoped>
+.wrapper-weather {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: linear-gradient(169.61deg, #2e3358 2.83%, #1c1b33 94.85%);
+}
+</style>
 
 <style>
 @font-face {
@@ -19,9 +30,8 @@ import AppCardlist from '@/components/AppCardlist.vue'
 
 .app {
   max-width: 390px;
-  min-height: 100vh;
-  background: linear-gradient(169.61deg, #2e3358 2.83%, #1c1b33 94.85%);
+  /* min-height: 100vh; */
+
   margin: 0 auto;
-  z-index: -1;
 }
 </style>
