@@ -1,33 +1,42 @@
 <script lang="ts" setup>
-import { useCityStore } from '@/stores/city'
-import { RouterLink } from 'vue-router'
-import { useTemplateRef, onMounted } from 'vue'
+import { useCityStore } from '@/stores/city';
+import { RouterLink } from 'vue-router';
+import { useTemplateRef, onMounted, ref } from 'vue';
+import popupCity from '../popup/popupCity.vue';
 
-const pageTitle = 'Погода'
-const pageInputPlaceholder = 'Поиск нужного города или аэропорта'
+const pageTitle = 'Погода';
+const pageInputPlaceholder = 'Поиск нужного города или аэропорта';
 
 // Хранение введенного города пользователем
-const cityStore = useCityStore()
+const cityStore = useCityStore();
 
 // Изменение значения введенного города
 const changeCityStore = (e: Event) => {
-  cityStore.change((e.target as HTMLInputElement).value)
-}
+  cityStore.change((e.target as HTMLInputElement).value);
+};
 
-const navLeftStringPath = new URL('../assets/navCardHeader/left.svg', import.meta.url).href
-const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.meta.url).href
+const navLeftStringPath = new URL('../assets/navCardHeader/left.svg', import.meta.url).href;
+const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.meta.url).href;
 
 // Привязка к input полю
-const input = useTemplateRef('input-text-user')
+const input = useTemplateRef('input-text-user');
+
+const isVisiblePopup = ref(false);
+
+const changePopupVisibly = () => {
+  isVisiblePopup.value = !isVisiblePopup.value;
+};
 
 // Фокус на input поле
 onMounted(() => {
-  input.value?.focus()
-})
+  input.value?.focus();
+});
 </script>
 
 <template>
   <div class="header" data-aos="fade-in">
+    <popupCity v-if="isVisiblePopup" />
+
     <div class="nav-content">
       <div class="nav-weather">
         <RouterLink to="/" class="nav-left-btn">
@@ -35,7 +44,7 @@ onMounted(() => {
         </RouterLink>
         <div class="weather-text">{{ pageTitle }}</div>
       </div>
-      <button class="nav-right-btn">
+      <button class="nav-right-btn" @click="changePopupVisibly()">
         <img :src="navRightStringPath" alt="nav right" class="nav-right-img" />
       </button>
     </div>
