@@ -40,9 +40,10 @@
                         fill="currentColor" />
                 </svg>
             </button>
-            <img class="wave" src="@/assets/plashka-dlya-knopki.svg">
+            <img class="wave" src="@/assets/img/plashka-dlya-knopki.svg">
             <router-link to="/weathers" class="button">
-                <span class="button__plus">+</span>
+                <span class="button__plus"></span>
+                <img class="button__p" src="@/assets/img/Symbol.svg">
             </router-link>
             <button class="navigation-btn" :disabled="isSwiping">
                 <div></div>
@@ -280,11 +281,10 @@ const isHourMode: Ref<boolean> = ref(false)
     z-index: 2;
     transition: transform 0.1s, box-shadow 0.1s;
 
-    &__plus {
-        font-size: 35px;
-        color: #4A2FBA;
-        font-weight: bold;
-        }
+    &__p {
+        width: 24px;
+        height: 24px;
+    }
 
     &:active {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
