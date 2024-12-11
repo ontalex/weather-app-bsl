@@ -1,43 +1,36 @@
 <script lang="ts" setup>
-  import { useCityStore } from '@/stores/city';
-  import { RouterLink } from 'vue-router';
-  import { useTemplateRef, onMounted, ref } from 'vue';
-  import popupCity from '../popup/popupCity.vue';
+import { useCityStore } from '@/stores/city';
+import { RouterLink } from 'vue-router';
+import { useTemplateRef, onMounted, ref } from 'vue';
+import popupCity from '../popup/popupCity.vue';
 
-  const pageTitle = 'Погода';
-  const pageInputPlaceholder = 'Поиск нужного города или аэропорта';
+const pageTitle = 'Погода';
+const pageInputPlaceholder = 'Поиск нужного города или аэропорта';
 
-  // Хранение введенного города пользователем
-  const cityStore = useCityStore();
+// Хранение введенного города пользователем
+const cityStore = useCityStore();
 
-  // Изменение значения введенного города
-  const changeCityStore = (e: Event) => {
-    cityStore.change((e.target as HTMLInputElement).value);
-  };
+// Изменение значения введенного города
+const changeCityStore = (e: Event) => {
+  cityStore.change((e.target as HTMLInputElement).value);
+};
 
-  const navLeftStringPath = new URL(
-    '../assets/navCardHeader/left.svg',
-    import.meta.url,
-  ).href;
-  const navRightStringPath = new URL(
-    '../assets/navCardHeader/right.svg',
-    import.meta.url,
-  ).href;
+const navLeftStringPath = new URL('../assets/navCardHeader/left.svg', import.meta.url).href;
+const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.meta.url).href;
 
-  // Привязка к input полю
-  const input = useTemplateRef('input-text-user');
+// Привязка к input полю
+const input = useTemplateRef('input-text-user');
 
-  const isVisiblePopup = ref(false);
+const isVisiblePopup = ref(false);
 
-  const changePopupVisibly = () => {
-    isVisiblePopup.value = !isVisiblePopup.value;
-    console.log(isVisiblePopup.value);
-  };
+const changePopupVisibly = () => {
+  isVisiblePopup.value = !isVisiblePopup.value;
+};
 
-  // Фокус на input поле
-  onMounted(() => {
-    input.value?.focus();
-  });
+// Фокус на input поле
+onMounted(() => {
+  input.value?.focus();
+});
 </script>
 
 <template>
@@ -82,92 +75,92 @@
 </template>
 
 <style scoped lang="scss">
-  .nav {
-    &-content {
-      display: grid;
-      padding-bottom: 8px;
-      grid-template-columns: 50% 50%;
-      justify-items: space-around;
-      align-items: center;
-      padding-top: 58px;
-      min-height: 52px;
-    }
-
-    &-right-btn {
-      justify-self: right;
-      margin-right: 16px;
-      width: 33px;
-      height: 34px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    &-weather {
-      display: flex;
-      align-items: center;
-    }
-
-    &-left-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-right: 5px;
-      margin-left: 16px;
-      width: 18px;
-      height: 24px;
-    }
-
-    &-left-img {
-      display: block;
-      margin: 0 auto;
-      width: 18px;
-      height: 24px;
-    }
+.nav {
+  &-content {
+    display: grid;
+    padding-bottom: 8px;
+    grid-template-columns: 50% 50%;
+    justify-items: space-around;
+    align-items: center;
+    padding-top: 58px;
+    min-height: 52px;
   }
 
-  .weather-text {
-    font-size: 1.56rem;
+  &-right-btn {
+    justify-self: right;
+    margin-right: 16px;
+    width: 33px;
+    height: 34px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  &-weather {
+    display: flex;
+    align-items: center;
+  }
+
+  &-left-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-left: 16px;
+    width: 18px;
+    height: 24px;
+  }
+
+  &-left-img {
+    display: block;
+    margin: 0 auto;
+    width: 18px;
+    height: 24px;
+  }
+}
+
+.weather-text {
+  font-size: 1.56rem;
+  font-weight: 400;
+}
+
+.input-text {
+  display: grid;
+  align-items: center;
+  position: relative;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.search-input {
+  border: none;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  max-width: 358px;
+  max-height: 36px;
+  outline: none;
+  padding: 7px 8px 7px 30px;
+  color: #fff;
+
+  &::placeholder {
+    font-size: 1rem;
     font-weight: 400;
   }
 
-  .input-text {
-    display: grid;
-    align-items: center;
-    position: relative;
-    padding-left: 16px;
-    padding-right: 16px;
+  &:focus ~ .search-icon {
+    opacity: 0.4;
   }
+}
 
-  .search-input {
-    border: none;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.25);
-    max-width: 358px;
-    max-height: 36px;
-    outline: none;
-    padding: 7px 8px 7px 30px;
-    color: #fff;
-
-    &::placeholder {
-      font-size: 1rem;
-      font-weight: 400;
-    }
-
-    &:focus ~ .search-icon {
-      opacity: 0.4;
-    }
-  }
-
-  .search-icon {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    padding: 10px 0;
-    pointer-events: none;
-    left: 24px;
-    box-sizing: content-box;
-    opacity: 0.6;
-    transition: opacity 0.15s ease-in-out;
-  }
+.search-icon {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  padding: 10px 0;
+  pointer-events: none;
+  left: 24px;
+  box-sizing: content-box;
+  opacity: 0.6;
+  transition: opacity 0.15s ease-in-out;
+}
 </style>
