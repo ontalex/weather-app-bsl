@@ -32,7 +32,6 @@
             v-else-if="!props.current_day?.hour">
             <p style="text-align: center">Нет данных</p>
         </div>
-
         <div class="navigation">
             <button class="navigation__link" @click="handlerUseLocation" :disabled="isSwiping">
                 <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,6 +40,10 @@
                         fill="currentColor" />
                 </svg>
             </button>
+            <img class="wave" src="@/assets/plashka-dlya-knopki.svg">
+            <router-link to="/weathers" class="button">
+                <span class="button__plus">+</span>
+            </router-link>
             <button class="navigation-btn" :disabled="isSwiping">
                 <div></div>
             </button>
@@ -252,6 +255,40 @@ const isHourMode: Ref<boolean> = ref(false)
         &:hover {
             color: #c427fb;
             background-color: #fff;
+        }
+    }
+
+    /**
+    * добавлен стиль кнопки
+    */
+
+    .button {
+    position: absolute;
+    top: 88%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 55px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.1s, box-shadow 0.1s;
+
+    &__plus {
+        font-size: 35px;
+        color: #4A2FBA;
+        font-weight: bold;
+        }
+
+    &:active {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+        transform: translate(-50%, -50%) scale(0.95);
         }
     }
 }
