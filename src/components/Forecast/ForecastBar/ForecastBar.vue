@@ -277,7 +277,6 @@ const isHourMode: Ref<boolean> = ref(false)
     justify-content: center;
     align-items: center;
     border: none;
-    cursor: pointer;
     z-index: 2;
     transition: transform 0.1s, box-shadow 0.1s;
 
