@@ -66,6 +66,10 @@ import type { Forecastday } from '../WeatherGPS.interfaces'
 import { useLocationStore } from '@/stores/navigation'
 import { useSwipe } from '@vueuse/core';
 
+onMounted(() => {
+    console.log();
+})
+
 // Ref на элементы компонента
 const elementBar = ref<HTMLElement | null>(null);
 const elementController = ref<HTMLElement | null>(null);
@@ -273,6 +277,7 @@ const isHourMode: Ref<boolean> = ref(false)
     justify-content: center;
     align-items: center;
     border: none;
+    cursor: pointer;
     z-index: 2;
     transition: transform 0.1s, box-shadow 0.1s;
 
