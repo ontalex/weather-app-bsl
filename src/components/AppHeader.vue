@@ -6,7 +6,8 @@ import popupCity from '../popup/popupCity.vue'
 
 const pageTitle = 'Список городов'
 const pageInputPlaceholder = 'Поиск нужного города или аэропорта'
-
+const imgChangeColor = ref('')
+// img-symbol-change-colors
 // Хранение введенного города пользователем
 const cityStore = useCityStore()
 
@@ -16,6 +17,7 @@ const changeCityStore = (e: Event) => {
 }
 
 const navLeftStringPath = new URL('../assets/navCardHeader/left.svg', import.meta.url).href
+const navRightSymbolStringPath = new URL('../assets/navCardHeader/symbol.svg', import.meta.url).href
 const navRightStringPath = new URL('../assets/navCardHeader/right.svg', import.meta.url).href
 
 // Привязка к input полю
@@ -24,6 +26,12 @@ const input = useTemplateRef('input-text-user')
 const isVisiblePopup = ref(false)
 
 const changePopupVisibly = () => {
+    console.log(isVisiblePopup.value)
+    if (isVisiblePopup.value == false) {
+        imgChangeColor.value = 'img-symbol-change-colors'
+    } else {
+        imgChangeColor.value = ''
+    }
     isVisiblePopup.value = !isVisiblePopup.value
 }
 
@@ -44,10 +52,15 @@ onMounted(() => {
             <div class="weather-text">{{ pageTitle }}</div>
 
             <button class="nav-right-btn nav-add-city-favorite" @click="changePopupVisibly()">
-                <img :src="navRightStringPath" alt="nav right" class="nav-right-img" />
+                <img
+                    :src="navRightSymbolStringPath"
+                    alt="nav right"
+                    class="nav-right-img-symbol"
+                    :class="imgChangeColor"
+                />
             </button>
 
-            <button class="nav-right-btn" @click="changePopupVisibly()">
+            <button class="nav-right-btn">
                 <img :src="navRightStringPath" alt="nav right" class="nav-right-img" />
             </button>
         </div>
@@ -78,7 +91,6 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-// 16px - left 5px - right
 .nav {
     &-content {
         display: grid;
@@ -120,6 +132,11 @@ onMounted(() => {
         width: 18px;
         height: 24px;
     }
+}
+
+.img-symbol-change-colors {
+    filter: invert(47%) sepia(45%) saturate(4606%) hue-rotate(165deg) brightness(100%)
+        contrast(101%);
 }
 
 .weather-text {
