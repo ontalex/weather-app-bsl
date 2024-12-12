@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useLocationStore } from '@/stores/navigation'
+import { useLocationStore } from '@/stores/geolocation'
 import { ref } from 'vue'
 // import { onBeforeMount, onMounted, type Ref } from "vue";
 
