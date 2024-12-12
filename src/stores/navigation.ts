@@ -1,33 +1,44 @@
-import { ref, type Ref } from 'vue'
-import * as pi from 'pinia'
+import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export const useLocationStore = pi.defineStore('location', {
-  state: () => ({
-    hasData: false,
-    latitude: null,
-    longitude: null,
-  }),
-  actions: {
-    updateLocation(lat, long) {
-      this.hasData = true
-      this.latitude = lat
-      this.longitude = long
-    },
-    async fetchLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            this.updateLocation(position.coords.latitude, position.coords.longitude)
-          },
-          (error) => {
-            this.hasData = false
-            console.error('Error occurred while retrieving geolocation: ', error)
-          },
-        )
-      } else {
-        this.hasData = false
-        console.error('Geolocation is not supported by this browser.')
-      }
-    },
-  },
-})
+/**
+ * Состояние открытости навигационного меню
+ */
+// export const storeNavigation = defineStore(
+//     "navigation",
+//     () => {
+//         /**
+//          * (true - открыто, false - закрыто)
+//          */
+//         const isOpen = ref<boolean>(false);
+//         /**
+//          * Смена состояния на указанное
+//          * @param state (true - открыто, false - закрыто)
+//          */
+//         function setState(state: boolean) {
+//             console.log("chenge state:", state, "; current:", isOpen.value);
+//             isOpen.value = state
+//         }
+//         function change() {
+//             isOpen.value = !isOpen.value
+//         }
+//         return {
+//             state: isOpen,
+//             set: setState,
+//             change
+//         }
+//     }
+// )
+export const storeNavigation = defineStore(
+    "navigation",
+    {
+        "state": () => ({
+            state: false
+        }),
+        "actions": {
+            setState: (state: boolean) => {
+                this.state = state
+            }
+        }
+    }
+)
