@@ -95,7 +95,7 @@ const com_datetime = computed(() => {
 <style lang="scss" scoped>
 .forecast-card {
     max-width: 100%;
-    min-width: 60px;
+    // min-width: 60px;
 
     padding: 16px 8px 16px 8px;
 
@@ -105,7 +105,7 @@ const com_datetime = computed(() => {
 
     gap: 16px;
 
-    padding: 16px 8px;
+    padding: 16px 10px;
 
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.2);
