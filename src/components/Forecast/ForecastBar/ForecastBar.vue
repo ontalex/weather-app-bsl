@@ -62,9 +62,6 @@ import ForecastCard from '../ForecastCard/ForecastCard.vue'
 import type { Forecastday } from '../WeatherGPS.interfaces'
 import { useLocationStore } from '@/stores/geolocation'
 import { useSwipe } from '@vueuse/core';
-import { storeNavigation } from '@/stores/navigation';
-
-const { setState } = storeNavigation();
 
 onMounted(() => {
     console.log();
@@ -160,6 +157,12 @@ const isHourMode: Ref<boolean> = ref(false)
 </script>
 
 <style lang="scss" scoped>
+.wave {
+    $margin_x: -25%;
+    margin-left: $margin_x;
+    margin-right: $margin_x;
+}
+
 .bar {
     display: grid;
     grid-template-columns: 1fr;
