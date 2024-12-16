@@ -32,7 +32,6 @@
             v-else-if="!props.current_day?.hour">
             <p style="text-align: center">Нет данных</p>
         </div>
-
         <div class="navigation">
             <button class="navigation__link" @click="handlerUseLocation" :disabled="isSwiping">
                 <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,16 +40,18 @@
                         fill="currentColor" />
                 </svg>
             </button>
-            <button class="navigation-btn" :disabled="isSwiping">
-                <div></div>
-            </button>
-            <RouterLink to="/weathers" class="navigation__link" :disabled="isSwiping">
+            <img class="wave" src="@/assets/img/plashka-dlya-knopki.svg">
+            <router-link to="/weathers" class="button">
+                <span class="button__plus"></span>
+                <img class="button__p" src="@/assets/img/Symbol.svg">
+            </router-link>
+            <button @click="toOpenMenu(true)" class="navigation__link" :disabled="isSwiping">
                 <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M12.418 17.5283L13.3418 16.8516L14.2334 17.5283C14.5557 17.7646 14.8994 17.5176 14.7812 17.1631L14.4268 16.0674L15.3291 15.3906C15.6084 15.1758 15.501 14.7783 15.1465 14.7783H14.0186L13.6426 13.6074C13.5459 13.2959 13.127 13.2959 13.0303 13.6074L12.6543 14.7783H11.5156C11.1611 14.7783 11.043 15.1758 11.333 15.3906L12.2461 16.0674L11.8916 17.1631C11.7627 17.5176 12.1064 17.7539 12.418 17.5283ZM18.4336 16.626H31.958C32.4414 16.626 32.8174 16.25 32.8174 15.7666C32.8174 15.2725 32.4414 14.8965 31.958 14.8965H18.4336C17.9502 14.8965 17.5635 15.2725 17.5635 15.7666C17.5635 16.25 17.9502 16.626 18.4336 16.626ZM12.418 24.0059L13.3418 23.3291L14.2334 24.0059C14.5557 24.2529 14.8994 23.9951 14.7812 23.6406L14.4268 22.5449L15.3291 21.8682C15.6084 21.6533 15.501 21.2666 15.1465 21.2666H14.0186L13.6426 20.085C13.5459 19.7842 13.127 19.7842 13.0303 20.085L12.6543 21.2666H11.5156C11.1611 21.2666 11.043 21.6533 11.333 21.8682L12.2461 22.5449L11.8916 23.6406C11.7734 23.9951 12.1064 24.2314 12.418 24.0059ZM18.4336 23.125H31.958C32.4414 23.125 32.8174 22.7383 32.8174 22.2549C32.8174 21.7715 32.4414 21.3955 31.958 21.3955H18.4336C17.9502 21.3955 17.5635 21.7715 17.5635 22.2549C17.5635 22.7383 17.9502 23.125 18.4336 23.125ZM12.418 30.5156L13.3418 29.8389L14.2334 30.5156C14.5557 30.7627 14.8994 30.5049 14.7812 30.1504L14.4268 29.0547L15.3291 28.3779C15.6084 28.1631 15.501 27.7764 15.1465 27.7764H14.0186L13.6426 26.5947C13.5459 26.2939 13.127 26.2832 13.0303 26.5947L12.6543 27.7764H11.5156C11.1611 27.7764 11.043 28.1631 11.333 28.3779L12.2461 29.0547L11.8916 30.1504C11.7734 30.5049 12.1064 30.7412 12.418 30.5156ZM18.4336 29.6133H31.958C32.4414 29.6133 32.8174 29.2373 32.8174 28.7539C32.8174 28.2598 32.4414 27.8838 31.958 27.8838H18.4336C17.9502 27.8838 17.5635 28.2598 17.5635 28.7539C17.5635 29.2373 17.9502 29.6133 18.4336 29.6133Z"
                         fill="currentColor" />
                 </svg>
-            </RouterLink>
+            </button>
         </div>
     </div>
 </template>
@@ -59,7 +60,7 @@
 import { computed, onMounted, ref, type Ref } from 'vue'
 import ForecastCard from '../ForecastCard/ForecastCard.vue'
 import type { Forecastday } from '../WeatherGPS.interfaces'
-import { useLocationStore } from '@/stores/navigation'
+import { useLocationStore } from '@/stores/geolocation'
 import { useSwipe } from '@vueuse/core';
 
 onMounted(() => {
@@ -137,6 +138,7 @@ const props = defineProps<{
     current_day: Forecastday | undefined
     days: Forecastday[] | undefined
     reload: () => void
+    toOpenMenu: (state: boolean) => void
 }>()
 
 const nav = useLocationStore()
@@ -155,6 +157,12 @@ const isHourMode: Ref<boolean> = ref(false)
 </script>
 
 <style lang="scss" scoped>
+.wave {
+    $margin_x: -25%;
+    margin-left: $margin_x;
+    margin-right: $margin_x;
+}
+
 .bar {
     display: grid;
     grid-template-columns: 1fr;
@@ -252,6 +260,39 @@ const isHourMode: Ref<boolean> = ref(false)
         &:hover {
             color: #c427fb;
             background-color: #fff;
+        }
+    }
+
+    /**
+    * добавлен стиль кнопки
+    */
+
+    .button {
+        position: absolute;
+        top: 88%;
+        left: 49%;
+        transform: translate(-50%, -50%);
+        width: 55px;
+        height: 55px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+        z-index: 2;
+        transition: transform 0.1s, box-shadow 0.1s;
+
+        &__p {
+            width: 24px;
+            height: 24px;
+        }
+
+        &:active {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+            transform: translate(-50%, -50%) scale(0.95);
         }
     }
 }
