@@ -15,7 +15,7 @@ const getLocalStore = (item: string) => {
 <template>
     <div class="v-popup" data-aos="fade-in">
         <div class="v-popup-header">
-            <span>Добавить в закладку</span>
+            <span>Добавить город</span>
             <span>🎏</span>
         </div>
         <div class="v-popup-content" v-for="cityName in CITIES_NAME" :key="cityName">
@@ -41,7 +41,7 @@ const getLocalStore = (item: string) => {
     right: 0;
     left: 0;
     width: 250px;
-    background-color: rgb(71, 40, 120);
+    background-color: rgba(71, 40, 120, 10);
     margin: 0 auto;
     font-family: 'Arial', 'Verdana', sans-serif;
 

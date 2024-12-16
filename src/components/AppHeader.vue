@@ -26,7 +26,6 @@ const input = useTemplateRef('input-text-user')
 const isVisiblePopup = ref(false)
 
 const changePopupVisibly = () => {
-    console.log(isVisiblePopup.value)
     if (isVisiblePopup.value == false) {
         imgChangeColor.value = 'img-symbol-change-colors'
     } else {
