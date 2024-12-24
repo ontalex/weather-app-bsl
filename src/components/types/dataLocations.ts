@@ -1,5 +1,4 @@
-import { reactive } from 'vue'
-import Icons from "@/assets/";
+import { reactive } from 'vue';
 
 interface Temperature {
     currentTemp: number
