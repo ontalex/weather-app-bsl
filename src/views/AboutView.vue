@@ -1,14 +1,13 @@
-<script setup lang="ts">
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-
-AOS.init()
-</script>
-
 <template>
     <div class="app">
         <!-- Блок о сервисе -->
-        <div data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="170" data-aos-offset="0" class="b">
+        <div
+            data-aos="fade-zoom-in"
+            data-aos-easing="ease-in-back"
+            data-aos-delay="170"
+            data-aos-offset="0"
+            class="b"
+        >
             <h1>О нашем сервисе</h1>
             <h2>Мы поможем вам быть в курсе погоды в любой точке мира!</h2>
         </div>
@@ -51,8 +50,8 @@ AOS.init()
             <p>
                 Наше приложение погоды — это удобный и надежный помощник, который всегда подскажет
                 актуальные данные о погоде в вашем регионе. Мы предоставляем точную информацию о
-                температуре, осадках, влажности и многом другом, чтобы вы могли планировать свой день с
-                уверенностью.
+                температуре, осадках, влажности и многом другом, чтобы вы могли планировать свой
+                день с уверенностью.
             </p>
         </div>
 
@@ -64,8 +63,8 @@ AOS.init()
                 <div class="txt-content">
                     <h3>Точные прогнозы в реальном времени</h3>
                     <p>
-                        Мы используем самые актуальные данные от ведущих метеорологических источников, чтобы
-                        предоставить вам максимально точную информацию о погоде.
+                        Мы используем самые актуальные данные от ведущих метеорологических
+                        источников, чтобы предоставить вам максимально точную информацию о погоде.
                     </p>
                 </div>
             </div>
@@ -74,8 +73,8 @@ AOS.init()
                 <div class="txt-content">
                     <h3>Интуитивно понятный интерфейс</h3>
                     <p>
-                        Легкий и приятный интерфейс позволяет вам быстро получать нужную информацию без лишних
-                        сложностей. Всё, что нужно — это пару кликов!
+                        Легкий и приятный интерфейс позволяет вам быстро получать нужную информацию
+                        без лишних сложностей. Всё, что нужно — это пару кликов!
                     </p>
                 </div>
             </div>
@@ -84,8 +83,8 @@ AOS.init()
                 <div class="txt-content">
                     <h3>Поддержка множества городов и регионов</h3>
                     <p>
-                        Приложение поддерживает прогнозы для множества городов по всему миру, так что вы всегда
-                        будете в курсе погоды, где бы вы ни находились.
+                        Приложение поддерживает прогнозы для множества городов по всему миру, так
+                        что вы всегда будете в курсе погоды, где бы вы ни находились.
                     </p>
                 </div>
             </div>
@@ -99,21 +98,24 @@ AOS.init()
     margin: 0 auto;
     position: relative;
     max-width: 390px;
-    max-height: 500rem;
+    max-height: 100%;
     background: linear-gradient(170deg, #2e3358, #1c1b33);
     color: #fff;
     padding: 25px;
+    overflow-y: auto;
 }
 
 .Command {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     margin: 20px auto;
     padding: 20px;
     max-width: 400px;
     background: linear-gradient(180deg, rgba(46, 51, 90, 0.5) 0%, rgba(28, 27, 51, 0.1) 100%),
-        radial-gradient(146.13% 118.42% at 50% -15.5%,
+        radial-gradient(
+            146.13% 118.42% at 50% -15.5%,
             rgba(255, 255, 255, 0.16) 0%,
-            rgba(255, 255, 255, 0) 99.59%);
+            rgba(255, 255, 255, 0) 99.59%
+        );
     outline-style: solid;
     border-radius: 10px;
 }
@@ -152,7 +154,7 @@ AOS.init()
 }
 
 .Command h3 {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     margin: 5px 0;
     font-size: 16px;
     color: #ffffff;
@@ -161,7 +163,7 @@ AOS.init()
 }
 
 .Command p {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     margin: 0;
     font-size: 14px;
     color: #ffffff85;
@@ -170,26 +172,26 @@ AOS.init()
 }
 
 .b {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     color: #fff;
     font-size: 1rem;
 }
 
 .b h1 {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     color: #fff;
     font-weight: 400;
 }
 
 .b h2 {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     color: rgba(255, 255, 255, 0.6);
     font-weight: 200;
     font-size: 1.4rem;
 }
 
 .heading {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
 }
 
 .heading h2 {
@@ -206,7 +208,7 @@ AOS.init()
 }
 
 .plus {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     font-weight: 200;
     color: #ffffff;
 }
@@ -231,7 +233,7 @@ AOS.init()
 }
 
 .plus h3 {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     font-size: 18px;
     font-weight: 200;
     margin: 0;
@@ -239,7 +241,7 @@ AOS.init()
 }
 
 .plus p {
-    font-family: "SF Pro Display";
+    font-family: 'SF Pro Display';
     font-size: 14px;
     line-height: 1.5;
     margin: 5px 0 0;
