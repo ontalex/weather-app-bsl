@@ -3,11 +3,11 @@ import { defineStore } from 'pinia'
 export const useLocationStore = defineStore('location', {
     state: () => ({
         hasData: false,
-        latitude: null,
-        longitude: null,
+        latitude: null as number | null,
+        longitude: null as number | null,
     }),
     actions: {
-        updateLocation(lat, long) {
+        updateLocation(lat: number, long: number) {
             this.hasData = true
             this.latitude = lat
             this.longitude = long
